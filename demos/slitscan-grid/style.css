@@ -1,0 +1,27 @@
+* {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: helvetica-neue-lt-pro, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+  /* width: 100%; */
+}
+
+.control-container {
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+}
