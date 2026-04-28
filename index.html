@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Open Day</title>
+  </head>
+  <body>
+    <script>
+      const demos = [
+        { label: "slitscan-grid", desc: "", src: "demos/slitscan-grid/" },
+        {
+          label: "matter-bouncy-letters",
+          desc: "",
+          src: "demos/matter-bouncy-letters/",
+        },
+        {
+          label: "aizawa",
+          desc: "Interactive visualisation of the Aizawa Attractor built in p5.js",
+          src: "demos/aizawa/",
+        },
+        {
+          label: "copy-bodypose",
+          desc: "Using machine learning to detect body poses on videos of people dancing",
+          src: "demos/copy-bodypose/",
+        },
+        {
+          label: "cube-viz",
+          desc: "Audio reactive 3D cube visuals. Test by allowing microphone access and making noise",
+          src: "demos/cube-viz/",
+        },
+        { label: "trail-grid", desc: "", src: "demos/trail-grid/" },
+        {
+          label: "hand-ascii",
+          desc: "Machine learning hand tracking interactive ascii visuals. Allow camera access and pinch your hand to zoom in and out",
+          src: "demos/hand-ascii/",
+        },
+
+        {
+          label: "ian-pooley-viz",
+          desc: "Audio reactive visuals for a club night with Ian Pooley",
+          src: "demos/ian-pooley-viz/",
+        },
+        {
+          label: "image-scrambler",
+          desc: "Image scrambling algorithm",
+          src: "demos/image-scrambler/",
+        },
+
+        { label: "particle-space", desc: "", src: "demos/particle-space/" },
+
+        {
+          label: "hand-point-cloud",
+          desc: "Machine learning hand tracking interactive point cloud destruction. Allow camera access and move your hand around to interact",
+          src: "demos/hand-point-cloud/",
+        },
+        {
+          label: "super-formula-subdivider",
+          desc: "Interactive example of the superformula. Change parameters and watch shapes change",
+          src: "demos/super-form/",
+        },
+      ];
+
+      let currentDemoIndex = 0;
+
+      function fitDemoToFrame() {
+        const iframe = document.getElementById("demo-frame");
+        const iframeDocument = iframe.contentDocument;
+        const iframeWindow = iframe.contentWindow;
+
+        if (!iframeDocument || !iframeWindow) {
+          return;
+        }
+
+        let injectedStyles = iframeDocument.getElementById("demo-fit-styles");
+
+        if (!injectedStyles) {
+          injectedStyles = iframeDocument.createElement("style");
+          injectedStyles.id = "demo-fit-styles";
+          injectedStyles.textContent = `
+            html, body {
+              margin: 0;
+              width: 100%;
+              height: 100%;
+              overflow: hidden;
+            }
+
+            body {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            canvas, video, img {
+              display: block;
+              max-width: 100%;
+              max-height: 100%;
+              width: 100% !important;
+              height: auto !important;
+              margin: 0 auto;
+            }
+          `;
+          iframeDocument.head.appendChild(injectedStyles);
+        }
+
+        iframeWindow.dispatchEvent(new Event("resize"));
+      }
+
+      function setDemo(index) {
+        currentDemoIndex = (index + demos.length) % demos.length;
+
+        const iframe = document.getElementById("demo-frame");
+        const label = document.getElementById("current-demo");
+        const desc = document.getElementById("current-demo-desc");
+
+        iframe.src = demos[currentDemoIndex].src;
+        label.textContent = demos[currentDemoIndex].label;
+        desc.textContent = demos[currentDemoIndex].desc;
+      }
+
+      function showNextDemo() {
+        setDemo(currentDemoIndex + 1);
+      }
+
+      function showPreviousDemo() {
+        setDemo(currentDemoIndex - 1);
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("previous-demo")
+          .addEventListener("click", showPreviousDemo);
+        document
+          .getElementById("next-demo")
+          .addEventListener("click", showNextDemo);
+        document
+          .getElementById("demo-frame")
+          .addEventListener("load", fitDemoToFrame);
+
+        setDemo(currentDemoIndex);
+      });
+    </script>
+    <div id="page">
+      <aside id="sidebar">
+        <div id="top-bar">
+          <span id="site-title">Introduction to Creative Computing</span>
+          <a id="info-button" href="contact.html" aria-label="Information page"
+            >i</a
+          >
+        </div>
+
+        <div id="markdown">
+          <span id="current-demo"></span>
+          <span id="current-demo-desc"></span>
+        </div>
+
+        <div id="bottom-bar">
+          <div id="bottom-bar-info"></div>
+          <div id="demo-controls">
+            <button type="button" id="previous-demo" class="demo-nav-button">
+              <span>Previous sketch</span>
+            </button>
+            <button type="button" id="next-demo" class="demo-nav-button">
+              <span>Next sketch</span>
+            </button>
+          </div>
+          <a
+            id="source-link"
+            href="https://github.com/beachatel/uos-cc-openday/demos"
+            aria-label="Source code on GitHub"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.5 0-.24-.01-1.03-.01-1.87-2.78.62-3.37-1.2-3.37-1.2-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .08 1.53 1.06 1.53 1.06.9 1.57 2.35 1.12 2.92.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.08 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.72 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.84c.85 0 1.71.12 2.52.36 1.91-1.32 2.75-1.05 2.75-1.05.55 1.42.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.95-2.33 4.81-4.56 5.07.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.8 0 .27.18.6.69.5A10.25 10.25 0 0 0 22 12.23C22 6.58 17.52 2 12 2z"
+              />
+            </svg>
+            <span>Source code</span>
+          </a>
+        </div>
+      </aside>
+
+      <div id="container">
+        <iframe
+          id="demo-frame"
+          src="demos/slitscan-grid/"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </div>
+  </body>
+</html>

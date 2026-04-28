@@ -1,0 +1,28 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+#tools {
+  margin-top: 8px;
+  padding: 10px;
+  /* floating over canvas */
+  position: absolute;
+  top: 10px;
+  background-color: #f0f0f0bc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+#closebtn {
+  font-size: 12px;
+  padding: 4px 8px;
+  position: absolute;
+  margin-bottom: 8px;
+}
