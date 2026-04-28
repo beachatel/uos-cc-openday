@@ -4,7 +4,9 @@ let blank = []; // stores open positions
 let img;
 
 function preload() {
-  img = loadImage("img/flow.jpg");
+  img = loadImage(
+    "https://res.cloudinary.com/dry9agskc/image/upload/v1777367505/flow_idyjmc.jpg",
+  );
 }
 
 //sliders:

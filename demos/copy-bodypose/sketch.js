@@ -25,10 +25,13 @@ function setup() {
   frameRate(60);
   noStroke();
 
-  video = createVideo("dance4.mp4", () => {
-    sx = width / video.width;
-    sy = height / video.height;
-  });
+  video = createVideo(
+    "https://res.cloudinary.com/dry9agskc/video/upload/v1777367415/dance4_yhypeu.mp4",
+    () => {
+      sx = width / video.width;
+      sy = height / video.height;
+    },
+  );
   video.loop();
   video.volume(0);
   video.hide();
@@ -54,7 +57,6 @@ function draw() {
   // redGrid()
 }
 
-// ---------------- TOP HALF ----------------
 function drawTopVideo() {
   push();
   translate(width / 2, height / 6);
@@ -176,7 +178,6 @@ function redGrid() {
   pop();
 }
 
-// ---------------- POSE CALLBACK ----------------
 function gotPoses(results) {
   if (poses.length > 0) {
     prevKeypoints = poses.map((p) =>
